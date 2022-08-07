@@ -13,53 +13,40 @@
     <div class="content">
         <form class="form">
             <h4 class="title">Наименование товара<img class="point" src="../photo1.png"></h4>
-                <input class="input" type="text" placeholder="Введите наименование товара">
+                <input 
+                    v-bind:value="title"
+                    @input="title = $event.target.value" 
+                    class="input" 
+                    type="text" 
+                    placeholder="Введите наименование товара"
+                >
             <h4 class="title">Описание товара</h4>
                 <textarea class="textarea" placeholder="Введите описание товара"></textarea>
             <h4 class="title">Ссылка на изображение товара<img class="point" src="../photo1.png"></h4>
-                <input class="input" type="text" placeholder="Введите ссылку">
+                <input
+                    v-bind:value="img" 
+                    @input="img = $event.target.value" 
+                    class="input" 
+                    type="text" 
+                    placeholder="Введите ссылку"
+                >
             <h4 class="title">Цена товара<img class="point" src="../photo1.png"></h4>
-                <input class="input" type="text" placeholder="Введите цену">
-            <div>
-                <button class="btn" type="submit">Добавить товар</button> 
-            </div>           
+                <input 
+                    v-bind:value="price"
+                    @input="price = $event.target.value" 
+                    class="input" 
+                    type="label" 
+                    placeholder="Введите цену"
+                >
+            
+            <button class="btn" type="submit" @click="createCard">Добавить товар</button>           
         </form>
         <div class="grid">
-            <div class="card">
-                <img class="img" src="../photo.svg" alt="">
-                <h3 class="titlCard">Наименование товара</h3>
-                <p class="text">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-                <p class="price">10 000руб.</p>
-            </div>
-            <div class="card">
-                <img class="img" src="../photo.svg" alt="">
-                <h3 class="titlCard">Наименование товара</h3>
-                <p class="text">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-                <p class="price">10 000руб.</p>
-            </div>
-            <div class="card">
-                <img class="img" src="../photo.svg" alt="">
-                <h3 class="titlCard">Наименование товара</h3>
-                <p class="text">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-                <p class="price">10 000руб.</p>
-            </div>
-            <div class="card">
-                <img class="img" src="../photo.svg" alt="">
-                <h3 class="titlCard">Наименование товара</h3>
-                <p class="text">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-                <p class="price">10 000руб.</p>
-            </div>
-            <div class="card">
-                <img class="img" src="../photo.svg" alt="">
-                <h3 class="titlCard">Наименование товара</h3>
-                <p class="text">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-                <p class="price">10 000руб.</p>
-            </div>
-            <div class="card">
-                <img class="img" src="../photo.svg" alt="">
-                <h3 class="titlCard">Наименование товара</h3>
-                <p class="text">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-                <p class="price">10 000руб.</p>
+            <div class="card" v-for="card in cards" :key="card">
+                <img class="img" :src="card.img">
+                <h3 class="titlCard">{{card.title}}</h3>
+                <p class="text">{{card.body}}</p>
+                <p class="price">{{card.price}}</p>
             </div>
         </div>
     </div>
@@ -70,6 +57,21 @@
 export default {
     data() {
         return {
+            cards: [
+                {id: 1, img: require('../photo.svg'), title: 'Наименование товара', body: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк', price: '10 000 руб.'},
+                {id: 2, img: require('../photo.svg'), title: 'Наименование товара', body: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк', price: '10 000 руб.'},
+                {id: 3, img: require('../photo.svg'), title: 'Наименование товара', body: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк', price: '10 000 руб.'},
+                {id: 4, img: require('../photo.svg'), title: 'Наименование товара', body: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк', price: '10 000 руб.'},
+                {id: 5, img: require('../photo.svg'), title: 'Наименование товара', body: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк', price: '10 000 руб.'},
+                {id: 6, img: require('../photo.svg'), title: 'Наименование товара', body: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк', price: '10 000 руб.'}
+            ],
+            title: '',
+            img: '',
+            price: ''
+        }
+    },
+    methods: {
+        createCard() {
 
         }
     }
@@ -84,7 +86,6 @@ export default {
     }
     body {
         background: #E5E5E5;
-        cursor: pointer;
     }
 
     .container {
@@ -201,7 +202,7 @@ export default {
         grid-template-columns: repeat(3, 1fr);
         gap: 16px;
         margin-left: 16px;
-              
+        cursor: pointer;      
     }
 
     .card {
