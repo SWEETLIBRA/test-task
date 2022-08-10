@@ -1,41 +1,46 @@
 <template>
-    
-        <form @submit.prevent class="form">
-                <h4 class="title">Наименование товара<img class="point" src="../../photo1.png"></h4>
-                    <input 
-                        v-model="card.title" 
-                        class="input" 
-                        type="text" 
-                        placeholder="Введите наименование товара"
-                    >
-                <h4 class="title">Описание товара</h4>
-                    <textarea class="textarea" placeholder="Введите описание товара"></textarea>
-                <h4 class="title">Ссылка на изображение товара<img class="point" src="../../photo1.png"></h4>
-                    <input
-                        v-model="card.img"
-                        class="input" 
-                        type="text" 
-                        placeholder="Введите ссылку"
-                    >
-                <h4 class="title">Цена товара<img class="point" src="../../photo1.png"></h4>
-                    <input 
-                        v-model="card.price" 
-                        class="input" 
-                        type="label" 
-                        placeholder="Введите цену"
-                    >
+    <form @submit.prevent class="form">
+            <h4 class="title">Наименование товара<img class="point" src="../../photo1.png"></h4>
+                <input-item 
+                    v-model="card.title" 
+                    placeholder="Введите наименование товара"
+                />
                 
-                <button class="btn" @click="createCard" >Добавить товар</button>           
-            </form>
-            
+            <h4 class="title">Описание товара</h4>
+                <textarea 
+                     v-model="card.description"
+                    class="textarea" 
+                    placeholder="Введите описание товара"
+                ></textarea>
+            <h4 class="title">Ссылка на изображение товара<img class="point" src="../../photo1.png"></h4>
+                <input-item
+                    v-model="card.img"
+                    placeholder="Введите ссылку"
+                />
+            <h4 class="title">Цена товара<img class="point" src="../../photo1.png"></h4>
+                <input-item 
+                    v-model="card.price" 
+                    placeholder="Введите цену"
+                />
+                
+            <button 
+                class="btn" 
+                @click="createCard" 
+            >
+                Добавить товар
+            </button>           
+    </form> 
 </template>
 
 <script>
+import InputItem from '@/components/UI/InputItem'
 export default {
+    components: {InputItem},
     data() {
         return {
             card: {
                 title: '',
+                description: '',
                 img: '',
                 price: ''
             }
@@ -47,6 +52,7 @@ export default {
             this.$emit('create', this.card)
             this.card = {
                 title: '',
+                description: '',
                 img: '',
                 price: ''
             }
@@ -87,7 +93,7 @@ export default {
 
     }
     
-    .input {
+    /* .input {
         width: 284px;
         height: 36px;
         background: #FFFEFB;
@@ -96,7 +102,7 @@ export default {
         margin-left: 24px;
         margin-right: 24px;
         border: none;
-    }
+    } */
 
     .textarea {
         width: 284px;
