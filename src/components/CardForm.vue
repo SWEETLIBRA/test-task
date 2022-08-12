@@ -1,30 +1,38 @@
 <template>
-    <form @submit.prevent class="form">
-            <h4 class="title">Наименование товара<img class="point" src="../../photo1.png"></h4>
+    <form @submit.prevent="submit" class="form">
+        <!-- <pre>{{form.productName}}</pre>
+        <pre>{{form.linkImg}}</pre>
+        <pre>{{form.price}}</pre> -->
+            <h4 class="title">Наименование товара</h4>
                 <input-item 
-                    v-model="card.title" 
+                    v-model="form.productName.value"
+                    id="productName"
+                    :class="{input: !form.productName.valid}" 
                     placeholder="Введите наименование товара"
                 />
                 
-            <h4 class="title">Описание товара</h4>
+            <h4 class="titl">Описание товара</h4>
                 <textarea 
                      v-model="card.description"
                     class="textarea" 
                     placeholder="Введите описание товара"
                 ></textarea>
-            <h4 class="title">Ссылка на изображение товара<img class="point" src="../../photo1.png"></h4>
+            <h4 class="title">Ссылка на изображение товара</h4>
                 <input-item
-                    v-model="card.img"
+                    v-model="form.linkImg.value"
+                    id="linkImg"
                     placeholder="Введите ссылку"
                 />
-            <h4 class="title">Цена товара<img class="point" src="../../photo1.png"></h4>
+            <h4 class="title">Цена товара</h4>
                 <input-item 
-                    v-model="card.price" 
+                    v-model="form.price.value"
+                    id="price" 
                     placeholder="Введите цену"
                 />
                 
             <button 
-                class="btn" 
+                class="btn"
+                type="submit" 
                 @click="createCard" 
             >
                 Добавить товар
@@ -34,7 +42,31 @@
 
 <script>
 import InputItem from '@/components/UI/InputItem'
+import {useForm} from '../use/form'
+
+const required = val => !!val
+
 export default {
+    setup() {
+        const form = useForm({
+            productName: {
+                value: 'Mackbook',
+                validators: {required}
+            },
+            linkImg: {
+                value: 'https://s1.1zoom.ru/big3/984/Canada_Parks_Lake_Mountains_Forests_Scenery_Rocky_567540_3840x2400.jpg',
+                validators: {required}
+            },
+            price: {
+                value: '10 000руб.',
+                validators: {required}
+            }
+        })
+       console.log(form.price);
+        function submit() {}
+
+        return {form, submit}
+    },
     components: {InputItem},
     data() {
         return {
@@ -62,7 +94,6 @@ export default {
 </script>
 
 <style scoped>
-    
     .form {
         width: 332px;
         height: 440px;
@@ -84,25 +115,22 @@ export default {
         margin-bottom: 4px;
     }
 
-    .point {
-        width: 4px;
-        height: 4px;
-        border-radius: 4px;
+    .title::after {
         position: absolute;
-        margin-left: 1px;
-
+        content: url('../../photo1.png');
+        top: -7px;
     }
-    
-    /* .input {
-        width: 284px;
-        height: 36px;
-        background: #FFFEFB;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
+
+    .titl {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 13px;
+        letter-spacing: -0.02em;
+        color: #49485E;
         margin-left: 24px;
-        margin-right: 24px;
-        border: none;
-    } */
+        margin-top: 16px;
+        margin-bottom: 4px;
+    }
 
     .textarea {
         width: 284px;

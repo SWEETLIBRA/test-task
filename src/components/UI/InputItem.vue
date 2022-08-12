@@ -13,7 +13,8 @@ export default {
     name: 'my-input',
     props: {
         modelValue: [String, Number],
-        placeholder: [String]
+        placeholder: [String],
+        required: [Boolean]
     },
     methods: {
         updateInput(e) {
