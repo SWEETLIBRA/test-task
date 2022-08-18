@@ -1,15 +1,17 @@
 <template>
     <form @submit.prevent="submit" class="form">
-        <!-- <pre>{{form.productName}}</pre>
-        <pre>{{form.linkImg}}</pre>
-        <pre>{{form.price}}</pre> -->
             <h4 class="title">Наименование товара</h4>
                 <input-item 
                     v-model="form.productName.value"
+                    @blur="form.productName.blur"
                     id="productName"
-                    :class="{input: !form.productName.valid}" 
+                    :class="{error: !form.productName.valid && form.productName.touched}" 
                     placeholder="Введите наименование товара"
                 />
+                <small 
+                    style="color: #FF8484; padding-left: 24px;font-weight: 400;font-size: 8px;line-height: 10px;letter-spacing: -0.02em;"
+                    v-if="form.productName.touched && form.productName.errors.required">
+                    Поле является обязательным</small>
                 
             <h4 class="titl">Описание товара</h4>
                 <textarea 
@@ -20,20 +22,32 @@
             <h4 class="title">Ссылка на изображение товара</h4>
                 <input-item
                     v-model="form.linkImg.value"
+                    @blur="form.linkImg.blur"
                     id="linkImg"
+                    :class="{error: !form.linkImg.valid && form.linkImg.touched}"
                     placeholder="Введите ссылку"
                 />
+                <small 
+                    style="color: #FF8484; padding-left: 24px;font-weight: 400;font-size: 8px;line-height: 10px;letter-spacing: -0.02em;"
+                    v-if="form.linkImg.touched && form.linkImg.errors.required">
+                    Поле является обязательным</small>
             <h4 class="title">Цена товара</h4>
                 <input-item 
                     v-model="form.price.value"
-                    id="price" 
+                    @blur="form.price.blur"
+                    id="price"
+                    :class="{error: !form.price.valid && form.price.touched}" 
                     placeholder="Введите цену"
                 />
-                
+                <small 
+                    style="color: #FF8484; padding-left: 24px;font-weight: 400;font-size: 8px;line-height: 10px;letter-spacing: -0.02em;"
+                    v-if="form.price.touched && form.price.errors.required">
+                    Поле является обязательным</small>
             <button 
                 class="btn"
                 type="submit" 
-                @click="createCard" 
+                @click="createCard"
+                :disabled="!form.valid" 
             >
                 Добавить товар
             </button>           
@@ -50,19 +64,19 @@ export default {
     setup() {
         const form = useForm({
             productName: {
-                value: 'Mackbook',
+                value: '',
                 validators: {required}
             },
             linkImg: {
-                value: 'https://s1.1zoom.ru/big3/984/Canada_Parks_Lake_Mountains_Forests_Scenery_Rocky_567540_3840x2400.jpg',
+                value: '',
                 validators: {required}
             },
             price: {
-                value: '10 000руб.',
+                value: '',
                 validators: {required}
             }
         })
-       console.log(form.price);
+
         function submit() {}
 
         return {form, submit}
@@ -146,7 +160,7 @@ export default {
     .btn {
         width: 284px;
         height: 36px;
-        background: #EEEEEE;
+        background: #7BAE73;
         border-radius: 10px;
         margin-left: 24px;
         margin-right: 24px;
@@ -156,7 +170,20 @@ export default {
         line-height: 15px;
         text-align: center;
         letter-spacing: -0.02em;
-        color: #B4B4B4;
+        color: #FFFFFF;
         border: none;
     }
+
+    .btn:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 1;
+    background: #eee;
+    border-color: #ddd;
+    color: #999;
+}
 </style>

@@ -1,8 +1,10 @@
 <template>
     <input 
+        
         :value="modelValue"
         @input="updateInput"
         :placeholder="placeholder"
+        :class="{error: error}"
         class="input" 
         type="text"
     >
@@ -14,7 +16,7 @@ export default {
     props: {
         modelValue: [String, Number],
         placeholder: [String],
-        required: [Boolean]
+        error: Boolean
     },
     methods: {
         updateInput(e) {
@@ -34,5 +36,9 @@ export default {
         margin-left: 24px;
         margin-right: 24px;
         border: none;
+    }
+
+    .error {
+        border: 1px solid #FF8484;
     }
 </style>
